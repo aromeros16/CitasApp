@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "209009448530",
+    "firebase_url": "https://citasapp-cdc51.firebaseio.com",
+    "project_id": "citasapp-cdc51",
+    "storage_bucket": "citasapp-cdc51.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209009448530:android:63735d57f2e9259562318b",
+        "android_client_info": {
+          "package_name": "com.example.citasapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "209009448530-bkmhb5f54lq9t0ad62rgvdjnl3aemp2g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWtZyUB8RVu5N6jpkHpHxf0Iu6GA956_I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "209009448530-bkmhb5f54lq9t0ad62rgvdjnl3aemp2g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
