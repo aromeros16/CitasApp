@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    android:alpha="0.8"
+
     android:orientation="vertical"
-    tools:context=".MainActivity" >
+    tools:context=".LoginActivity" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="120dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -22,31 +21,42 @@
             android:text="@string/citasapp"
             android:textAlignment="center"
             android:textAllCaps="false"
-            android:textColor="#000000"
             android:textSize="70sp"
             android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="352dp"
         android:layout_height="171dp"
-        android:orientation="vertical" >
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        android:layout_marginRight="25dp">
 
         <EditText
             android:id="@+id/editText3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:background="#FFFFFF"
             android:inputType="textPersonName"
-            android:text="Name" />
+            android:hint ="Nombre" />
 
         <EditText
             android:id="@+id/editText4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="Name" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="29dp"
+            android:text="¿Olvidaste la contraseña?"
+            android:textAlignment="textEnd" />
+
     </LinearLayout>
 
     <LinearLayout
