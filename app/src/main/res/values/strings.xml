@@ -2,4 +2,13 @@
     <string name="app_name">CitasApp</string>
 
     <string name="citasapp">CitasAPP</string>
+    <string name="citaapp">CitaApp</string>
+
+    <string name="imageSplash">No image</string>
+    <string name="login_new_user">¿Nuevo usuario? Registrarse</string>
+    <string name="login_sign_in">Iniciar sesión</string>
+    <string name="login_forgotten_password">¿Contraseña olvidada?</string>
+    <string name="login_password">Contraseña</string>
+    <string name="login_email">Email</string>
+    <string name="login_welcome">Hola, bienvenido de nuevo</string>
 </resources>
