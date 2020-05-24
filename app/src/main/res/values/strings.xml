@@ -11,4 +11,10 @@
     <string name="login_password">Contraseña</string>
     <string name="login_email">Email</string>
     <string name="login_welcome">Hola, bienvenido de nuevo</string>
+    <string name="login_o">ò</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="registrer_txtbutton">Registrarse</string>
+    <string name="registrer_password">Rep. Contraseña</string>
 </resources>
