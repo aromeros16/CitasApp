@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/label_rounded"
-            android:id="@+id/txtEmail"
+            android:id="@+id/textEmail"
             android:hint="@string/login_email"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             >
@@ -34,6 +34,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/textPassword"
             android:layout_marginTop="20dp"
             android:background="@drawable/label_rounded"
             android:hint="@string/login_password"
@@ -51,6 +52,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/textRepPassword"
             android:layout_marginTop="20dp"
             android:background="@drawable/label_rounded"
             android:hint="@string/registrer_password"
@@ -68,6 +70,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/btonRegister"
             android:text="@string/registrer_txtbutton"
             android:background="@drawable/button_rounded"
             android:textColor="@color/colorPrimary"

@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/label_rounded"
-            android:id="@+id/txtEmail"
+            android:id="@+id/textEmail_Login"
             android:hint="@string/login_email"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             >
@@ -54,6 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:id="@+id/textPassword_Login"
             android:background="@drawable/label_rounded"
             android:hint="@string/login_password"
             app:passwordToggleEnabled="true"
@@ -72,6 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_margin="5dp"
+            android:id="@+id/btonForgetPwd_Login"
             style="?android:attr/borderlessButtonStyle"
             android:textColor="#ffffff"
             android:elevation="0dp"
@@ -81,6 +83,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/btonSignIn_Login"
             android:text="@string/login_sign_in"
             android:background="@drawable/button_rounded"
             android:textColor="@color/colorPrimary"
@@ -100,6 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_marginLeft="13dp"
+            android:id="@+id/btonRegister_Login"
             android:text="@string/login_new_user"
             android:textColor="#fff"
             android:textSize="12sp"
@@ -117,7 +121,7 @@
             android:textStyle="bold" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/btonGmail_login"
             android:layout_width="47dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
