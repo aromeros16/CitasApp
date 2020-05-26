@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
-    tools:context=".views.login.RegisterActivity"
+    tools:context=".views.RegisterActivity"
     android:padding="20dp">
 
     <LinearLayout
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/label_rounded"
-            android:id="@+id/textEmail"
+            android:id="@+id/textEmail_home"
             android:hint="@string/login_email"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             >
