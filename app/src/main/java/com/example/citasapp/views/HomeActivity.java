@@ -1,71 +1,90 @@
 package com.example.citasapp.views;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.view.MenuItem;
 
 import com.example.citasapp.R;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
-enum ProviderType {
-    BASIC,
-    GOOGLE
-}
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    Button signOut;
-    TextView email,provider;
+    Toolbar toolbar;
+    DrawerLayout drawe;
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        email = findViewById(R.id.textEmail_home);
-        provider = findViewById(R.id.textProvider_home);
-        signOut = findViewById(R.id.buttonSignOut);
-        //Setup
-        Intent intent = getIntent();
-        String email = intent.getStringExtra("email");
-        String provider = intent.getStringExtra("provider");
-        setup(email,provider);
+        //Hooks
+        toolbar = findViewById(R.id.toolbar);
+        navigationView = findViewById(R.id.ltNav);
+        drawe = findViewById(R.id.drawer_layout);
 
-        // Saved data
-        SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit = prefs.edit();
-        edit.putString("email",email);
-        edit.putString("provider",provider);
-        edit.apply();
+        //Tool bar
+        setSupportActionBar(toolbar);
 
-        signOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        //Navigation Drawer Menu
+        navigationView.bringToFront();
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawe,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        drawe.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+
+        NavController navController = Navigation.findNavController(this,R.id.fragmentNavHost);
+        NavigationUI.setupWithNavController(navigationView,navController);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if(drawe.isDrawerOpen(GravityCompat.START)){
+            drawe.closeDrawer(GravityCompat.START);
+        }
+        else{
+            super.onBackPressed();
+        }
+
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+        switch (menuItem.getItemId()){
+            case R.id.nav_singOut:
                 logOut();
-            }
-        });
+                break;
+        }
 
+        drawe.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     private void logOut() {
         SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = prefs.edit();
         edit.clear();
-        edit.apply();
+        edit.commit();
 
         FirebaseAuth.getInstance().signOut();
-        onBackPressed();
-    }
 
-    private void setup(String txtemail, String txtprovider){
-        email.setText(txtemail);
-        provider.setText(txtprovider);
+        onBackPressed();
     }
 }

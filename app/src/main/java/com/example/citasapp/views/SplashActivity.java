@@ -25,8 +25,6 @@ public class SplashActivity extends AppCompatActivity {
     private ImageView imageView;
     private TextView txtApp;
 
-    private String emailPrefs, providerPrefs;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Ocultar actionbar
@@ -54,27 +52,5 @@ public class SplashActivity extends AppCompatActivity {
                 finish();
             }
         },SPLASH_SCREEN);
-
-
-        session();
-
-    }
-
-    private void session() {
-        SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
-        emailPrefs = prefs.getString("email",null);
-        providerPrefs = prefs.getString("provider",null);
-
-        Log.i("",emailPrefs+providerPrefs);
-        if(emailPrefs !=null && providerPrefs != null){
-            showHome(emailPrefs,ProviderType.valueOf(providerPrefs));
-        }
-    }
-
-    private void showHome(String email, ProviderType provider){
-        Intent intentHome = new Intent(SplashActivity.this,HomeActivity.class);
-        intentHome.putExtra("email",emailPrefs);
-        intentHome.putExtra("provider",provider.name());
-        startActivity(intentHome);
     }
 }

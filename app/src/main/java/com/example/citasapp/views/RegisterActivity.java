@@ -59,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
                     txtPwd.setError("Por favor introduce una contraseña");
                     txtPwd.requestFocus();
                 }else if (repPwd.isEmpty()) {
-                        txtPwd.setError("Por favor introduce la confirmacion de la contraseña");
+                        txtPwd.setError("Por favor introduce la confirmación de la contraseña");
                         txtPwd.requestFocus();
                 } else if (!pwd.equals(repPwd)) {
                     txtPwd.setError("Las contraseñas deben coincidir");
@@ -71,11 +71,6 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful()) {
-                               /* if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                    Toast.makeText(getApplicationContext(), task.getException().toString(), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                }*/
                                 showAlert();
                             } else {
                                 showHome(task.getResult().getUser().getEmail(),ProviderType.BASIC);

@@ -7,14 +7,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.LocusId;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.citasapp.R;
@@ -37,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout txtEmail, txtPassword;
     private Button btnSingIn, btnForgetPwd, btnRegister;
     private ImageButton btnGmail;
+    private String emailPrefs, providerPrefs;
 
     private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseAuth firebaseAuth;
@@ -49,6 +49,8 @@ public class LoginActivity extends AppCompatActivity {
 
         //Ocultar actionbar
         getSupportActionBar().hide();
+
+        session();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -208,6 +210,18 @@ public class LoginActivity extends AppCompatActivity {
         }
         else{
             Toast.makeText(LoginActivity.this, "No tiene cuenta de Gmail en este dispositivo", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void session() {
+        SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
+        emailPrefs = prefs.getString("email",null);
+        providerPrefs = prefs.getString("provider","null");
+
+        Log.i("","alcaparras");
+        //Log.i("",emailPrefs);
+        if(emailPrefs != null ){
+            showHome(emailPrefs,ProviderType.valueOf(providerPrefs));
         }
     }
 }

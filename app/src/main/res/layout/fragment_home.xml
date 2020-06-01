@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center|bottom"
+    android:background="@drawable/background"
+    tools:context=".views.HomeFragment">
+
+
+    <TextView
+        android:id="@+id/textEmail_home"
+        android:layout_width="211dp"
+        android:layout_height="25dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textProvider_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <Button
+        android:id="@+id/btonQuote"
+        android:layout_width="204dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="45pt"
+        android:background="@drawable/button_rounded"
+        android:gravity="center"
+        android:text="@string/quote_home" />
+
+</LinearLayout>

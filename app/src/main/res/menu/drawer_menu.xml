@@ -1,20 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools = "http://schemas.android.com/tools"
-    tools:showIn = "navigation_view" >
+    xmlns:tools = "http://schemas.android.com/tools">
 
-    <group android:checkableBehavior="single">
-       <item android:id="@+id/nav_message"
-           android:icon="@drawable/mensaje"
-           android:title="Mensaje" />
+<group android:checkableBehavior="single">
+       <item android:id="@+id/nav_make_quoted"
+           android:title="Pedir cita" />
+        <item android:id="@+id/nav_quoted"
+           android:title="Citas" />
         <item android:id="@+id/nav_chat"
-           android:icon="@drawable/mensaje"
-           android:title="Mensaje" />
-        <item android:id="@+id/nav_profile"
-           android:icon="@drawable/mensaje"
-           android:title="Mensaje" />
-        <item android:id="@+id/nav_signOut"
-           android:icon="@drawable/mensaje"
-           android:title="Mensaje" />
+           android:title="Mensajes" />
+        <item android:id="@+id/nav_ad"
+           android:title="Anuncio" />
+        <item android:id="@+id/nav_tips"
+           android:title="Consejos" />
+
     </group>
+
+    <item android:title="Sobre Nosotros">
+            <menu>
+                <group android:checkableBehavior="single">
+                <item android:id="@+id/nav_aboutus"
+                    android:title="Nosotros" />
+                <item android:id="@+id/nav_info"
+                    android:title="Info." />
+                </group>
+            </menu>
+    </item>
+
+    <item android:title="Perfil">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item android:id="@+id/nav_profile"
+                android:title="Editar datos" />
+                <item android:id="@+id/nav_singOut"
+                android:title="Salir" />
+            </group>
+        </menu>
+    </item>
+
 </menu>
