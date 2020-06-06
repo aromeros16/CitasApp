@@ -27,11 +27,9 @@
             </menu>
     </item>
 
-    <item android:title="Perfil">
+    <item android:title="">
         <menu>
             <group android:checkableBehavior="single">
-                <item android:id="@+id/nav_profile"
-                android:title="Editar datos" />
                 <item android:id="@+id/nav_singOut"
                 android:title="Salir" />
             </group>

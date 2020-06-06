@@ -8,19 +8,6 @@
     android:background="@drawable/background"
     tools:context=".views.HomeFragment">
 
-
-    <TextView
-        android:id="@+id/textEmail_home"
-        android:layout_width="211dp"
-        android:layout_height="25dp"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/textProvider_home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
-
     <Button
         android:id="@+id/btonQuote"
         android:layout_width="204dp"

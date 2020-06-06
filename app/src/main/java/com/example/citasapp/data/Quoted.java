@@ -4,19 +4,19 @@ import java.util.Date;
 
 public class Quoted {
 
-    private int idAppointment;
-    private int idUser;
-    private int idPhysiotherapist;
-    private int idInjury;
-    private Date dateQuoted;
-    private int timeQuoted;
+    private String idQuoted;
+    private String idUser;
+    private String idPhysiotherapist;
+    private String idInjury;
+    private String dateQuoted;
+    private String timeQuoted;
     private String State;
 
     public Quoted() {
     }
 
-    public Quoted(int idAppointment, int idUser, int idPhysiotherapist, int idInjury, Date dateQuoted, int timeQuoted, String state) {
-        this.idAppointment = idAppointment;
+    public Quoted(String idAppointment, String idUser, String idPhysiotherapist, String idInjury, String dateQuoted, String timeQuoted, String state) {
+        this.idQuoted = idAppointment;
         this.idUser = idUser;
         this.idPhysiotherapist = idPhysiotherapist;
         this.idInjury = idInjury;
@@ -25,51 +25,51 @@ public class Quoted {
         State = state;
     }
 
-    public int getIdAppointment() {
-        return idAppointment;
+    public String getIdQuoted() {
+        return idQuoted;
     }
 
-    public void setIdAppointment(int idAppointment) {
-        this.idAppointment = idAppointment;
+    public void setIdQuoted(String idQuoted) {
+        this.idQuoted = idQuoted;
     }
 
-    public int getIdUser() {
+    public String getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(int idUser) {
+    public void setIdUser(String idUser) {
         this.idUser = idUser;
     }
 
-    public int getIdPhysiotherapist() {
+    public String getIdPhysiotherapist() {
         return idPhysiotherapist;
     }
 
-    public void setIdPhysiotherapist(int idPhysiotherapist) {
+    public void setIdPhysiotherapist(String idPhysiotherapist) {
         this.idPhysiotherapist = idPhysiotherapist;
     }
 
-    public int getIdInjury() {
+    public String getIdInjury() {
         return idInjury;
     }
 
-    public void setIdInjury(int idInjury) {
+    public void setIdInjury(String idInjury) {
         this.idInjury = idInjury;
     }
 
-    public Date getDateQuoted() {
+    public String getDateQuoted() {
         return dateQuoted;
     }
 
-    public void setDateQuoted(Date dateQuoted) {
+    public void setDateQuoted(String dateQuoted) {
         this.dateQuoted = dateQuoted;
     }
 
-    public int getTimeQuoted() {
+    public String getTimeQuoted() {
         return timeQuoted;
     }
 
-    public void setTimeQuoted(int timeQuoted) {
+    public void setTimeQuoted(String timeQuoted) {
         this.timeQuoted = timeQuoted;
     }
 

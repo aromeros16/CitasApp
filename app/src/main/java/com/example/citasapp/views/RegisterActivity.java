@@ -73,7 +73,7 @@ public class RegisterActivity extends AppCompatActivity {
                             if (!task.isSuccessful()) {
                                 showAlert();
                             } else {
-                                showHome(task.getResult().getUser().getEmail(),ProviderType.BASIC);
+                                showHome(task.getResult().getUser().getEmail());
                             }
                         }
                     });
@@ -93,10 +93,9 @@ public class RegisterActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void showHome(String email, ProviderType provider){
+    private void showHome(String email){
         Intent intentHome = new Intent(this,HomeActivity.class);
         intentHome.putExtra("email",email);
-        intentHome.putExtra("provider",provider.name());
         startActivity(intentHome);
     }
 

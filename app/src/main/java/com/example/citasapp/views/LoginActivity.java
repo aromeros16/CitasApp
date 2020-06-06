@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.LocusId;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.citasapp.R;
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -31,6 +31,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import java.util.Arrays;
+
 public class LoginActivity extends AppCompatActivity {
 
     private TextInputLayout txtEmail, txtPassword;
@@ -43,14 +45,13 @@ public class LoginActivity extends AppCompatActivity {
     private GoogleSignInClient googleSignInClient;
 
     private int RC_SING_IN = 100;
+    private static final String GOOGLE = "google.com";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         //Ocultar actionbar
         getSupportActionBar().hide();
-
-        session();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -77,11 +78,16 @@ public class LoginActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                 if(firebaseUser != null){
-                    Toast.makeText(LoginActivity.this,"Registro correcto",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
                 }
                 else{
+                  startActivityForResult(AuthUI.getInstance()
+                            .createSignInIntentBuilder()
+                            .setIsSmartLockEnabled(false)
+                            .setTosUrl("http://databaseremote.esy.es/RegisterLite/html/privacidad.html")
+                            .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build()))
+                            .build(),RC_SING_IN);
                     Toast.makeText(LoginActivity.this,"Por favor, debe registrarse",Toast.LENGTH_SHORT).show();
                 }
             }
@@ -110,10 +116,9 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(!task.isSuccessful()){
                             showAlert();
-                            //Toast.makeText(LoginActivity.this,"Error en el login, Por favor prueba otra vez",Toast.LENGTH_SHORT).show();
                         }
                         else{
-                            showHome(task.getResult().getUser().getEmail(),ProviderType.BASIC);
+                            showHome();
                         }
                     }
                 });
@@ -134,7 +139,19 @@ public class LoginActivity extends AppCompatActivity {
     });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        firebaseAuth.addAuthStateListener(authStateListener);
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (authStateListener != null){
+            firebaseAuth.addAuthStateListener(authStateListener);
+        }
+    }
 
     private void showAlert(){
         AlertDialog.Builder build = new AlertDialog.Builder(this);
@@ -145,10 +162,8 @@ public class LoginActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void showHome(String email, ProviderType provider){
+    private void showHome(){
         Intent intentHome = new Intent(LoginActivity.this,HomeActivity.class);
-        intentHome.putExtra("email",email);
-        intentHome.putExtra("provider",provider.name());
         startActivity(intentHome);
     }
 
@@ -160,16 +175,17 @@ public class LoginActivity extends AppCompatActivity {
 
     private void signInGmail(){
         //Config
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
+        AuthUI.IdpConfig googleIdp = new AuthUI.IdpConfig.GoogleBuilder()
+                                                .build();
 
-        //Sistema autenticacion
-        googleSignInClient = GoogleSignIn.getClient(this,gso);
-        googleSignInClient.signOut();
-        //Mostrar pantalla autenticación google
-        startActivityForResult(googleSignInClient.getSignInIntent(), RC_SING_IN);
+        startActivityForResult(AuthUI.getInstance()
+                .createSignInIntentBuilder()
+                .setIsSmartLockEnabled(false)
+                .setTosUrl("http://databaseremote.esy.es/RegisterLite/html/privacidad.html")
+                .setAvailableProviders(Arrays.asList(googleIdp))
+                .build(),RC_SING_IN);
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -177,19 +193,21 @@ public class LoginActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
           if (requestCode == RC_SING_IN) {
-              Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-              handleSignInResult(task);
+              if (resultCode == RESULT_OK) {
+                  Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                  handleSignInResult(task);
+              }
           }
     }
 
     private void handleSignInResult(Task<GoogleSignInAccount> completeTask){
         try {
             GoogleSignInAccount googleSignInAccount = completeTask.getResult(ApiException.class);
-            Toast.makeText(LoginActivity.this,"Registro correctamente",Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this,"Registro correcto",Toast.LENGTH_SHORT).show();
             FirebaseGoogleAuth(googleSignInAccount);
         }
         catch (ApiException e){
-            Toast.makeText(LoginActivity.this,"Registro incorrectamente",Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this,"Algo falló, intente de nuevo",Toast.LENGTH_SHORT).show();
             FirebaseGoogleAuth(null);
         }
     }
@@ -201,7 +219,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    showHome(account.getEmail(),ProviderType.GOOGLE);
+                    showHome();
                 } else {
                     showAlert();
                 }
@@ -210,18 +228,6 @@ public class LoginActivity extends AppCompatActivity {
         }
         else{
             Toast.makeText(LoginActivity.this, "No tiene cuenta de Gmail en este dispositivo", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void session() {
-        SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
-        emailPrefs = prefs.getString("email",null);
-        providerPrefs = prefs.getString("provider","null");
-
-        Log.i("","alcaparras");
-        //Log.i("",emailPrefs);
-        if(emailPrefs != null ){
-            showHome(emailPrefs,ProviderType.valueOf(providerPrefs));
         }
     }
 }

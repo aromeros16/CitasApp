@@ -8,7 +8,11 @@
         android:id="@+id/homeFragment"
         android:name="com.example.citasapp.views.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_nav_make_quoted"
+            app:destination="@id/nav_make_quoted" />
+    </fragment>
     <fragment
         android:id="@+id/nav_aboutus"
         android:name="com.example.citasapp.views.AboutUsFragment"
@@ -35,11 +39,6 @@
         android:label="fragment_info"
         tools:layout="@layout/fragment_info" />
     <fragment
-        android:id="@+id/nav_profile"
-        android:name="com.example.citasapp.views.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
-    <fragment
         android:id="@+id/nav_tips"
         android:name="com.example.citasapp.views.TipsFragment"
         android:label="fragment_tips"
@@ -49,4 +48,13 @@
         android:name="com.example.citasapp.views.MakeQuotedFragment"
         android:label="fragment_make_quoted"
         tools:layout="@layout/fragment_make_quoted" />
+    <fragment
+        android:id="@+id/selectInformationFragment"
+        android:name="com.example.citasapp.views.SelectInformationFragment"
+        android:label="fragment_about_us_single"
+        tools:layout="@layout/fragment_select_information" >
+        <action
+            android:id="@+id/action_aboutUsSingleFragment_to_nav_aboutus"
+            app:destination="@id/nav_aboutus" />
+    </fragment>
 </navigation>

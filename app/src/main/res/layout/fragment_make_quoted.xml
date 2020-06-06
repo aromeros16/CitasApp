@@ -44,7 +44,19 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="match_parent"
+            android:layout_height="31dp"
+            android:text="Horario"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textIsSelectable="false"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerviewMakeQuoted"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>

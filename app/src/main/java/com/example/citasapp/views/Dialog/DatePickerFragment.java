@@ -1,4 +1,4 @@
-package com.example.citasapp.views;
+package com.example.citasapp.views.Dialog;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
