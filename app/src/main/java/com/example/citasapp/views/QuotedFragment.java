@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.citasapp.R;
 import com.example.citasapp.controller.FirebaseReferences;
 import com.example.citasapp.data.Quoted;
-import com.example.citasapp.views.customRecycler.CustomAdaptarQuoted;
+import com.example.citasapp.controller.CustomAdaptarQuoted;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,15 +26,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class QuotedFragment extends Fragment {
 
     private TextView txtDate, txtTime, txtState;
-    private List<Quoted> quotedList;
+    private ArrayList<Quoted> quotedList;
     private RecyclerView recyclerView;
-    private CustomAdaptarQuoted customAdaptarQuoted;
 
     private String userID;
 
@@ -66,12 +64,17 @@ public class QuotedFragment extends Fragment {
                 if (dataSnapshot.exists()) {
                     quotedList.removeAll(quotedList);
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                       Quoted quoted = snapshot.getValue(Quoted.class);
-                       quotedList.add(quoted);
+                        String dateBase = snapshot.child("idUser").getValue(String.class);
+                        if (userID.equals(dateBase)){
+                        Quoted quoted = snapshot.getValue(Quoted.class);
+                        quoted.setIdQuoted(snapshot.getKey());
+                        quotedList.add(quoted);
+                    }
                }
 
-                    //customAdaptarQuoted = new CustomAdaptarQuoted(quotedList);
-                    //recyclerView.setAdapter(customAdaptarQuoted);
+                    recyclerView = getView().findViewById(R.id.recyclerviewQuoted);
+                    recyclerView.setAdapter(new CustomAdaptarQuoted(quotedList));
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getView().getContext()));
         }
 }
             @Override

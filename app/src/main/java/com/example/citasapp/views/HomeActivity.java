@@ -78,13 +78,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void logOut() {
-        SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit = prefs.edit();
-        edit.clear();
-        edit.commit();
-
         FirebaseAuth.getInstance().signOut();
-
         onBackPressed();
     }
 }

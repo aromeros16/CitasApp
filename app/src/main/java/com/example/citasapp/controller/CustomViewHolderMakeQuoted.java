@@ -1,4 +1,4 @@
-package com.example.citasapp.views.customRecycler;
+package com.example.citasapp.controller;
 
 import android.graphics.Color;
 import android.view.View;

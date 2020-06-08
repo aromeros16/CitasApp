@@ -19,17 +19,15 @@ import android.widget.Toast;
 
 import com.example.citasapp.R;
 import com.example.citasapp.controller.FirebaseReferences;
-import com.example.citasapp.data.Quoted;
 import com.example.citasapp.data.QuotedAux;
 import com.example.citasapp.views.Dialog.DatePickerFragment;
-import com.example.citasapp.views.customRecycler.CustomAdapterMakeQuoted;
+import com.example.citasapp.controller.CustomAdapterMakeQuoted;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.sql.SQLOutput;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,8 +51,8 @@ public class MakeQuotedFragment extends Fragment {
         txtDate = view.findViewById(R.id.txtDate_Quoted);
 
         Calendar c = Calendar.getInstance();
-        String dateAct = c.get(Calendar.DAY_OF_MONTH) + "-"
-                + c.get(Calendar.MONTH + 1) +"-"
+        String dateAct = c.get(Calendar.DAY_OF_MONTH) + "/"
+                + c.get(Calendar.MONTH + 1) +"/"
                 + c.get(Calendar.YEAR);
         txtDate.setText(dateAct);
 

@@ -1,9 +1,9 @@
-package com.example.citasapp.views.customRecycler;
+package com.example.citasapp.controller;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,34 +13,40 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.citasapp.R;
-import com.example.citasapp.data.Tips;
+import com.example.citasapp.data.Physiotherapist;
 import com.example.citasapp.views.SelectInformationFragment;
 
 import java.util.List;
 
-public class CustomAdapterTips extends RecyclerView.Adapter<CustomViewHolderTips> {
+public class CustomAdapterAboutUs extends RecyclerView.Adapter<CustomViewHolderAboutUs> {
 
-    private List<Tips> tipsList;
+    private List<Physiotherapist> listPhysiotherapist;
 
-    public CustomAdapterTips(List<Tips> list){
-        tipsList = list;
+    public CustomAdapterAboutUs(List<Physiotherapist> physiotherapist) {
+        listPhysiotherapist = physiotherapist;
+
     }
-
     @NonNull
     @Override
-    public CustomViewHolderTips onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_tips,
-                parent, false);
+    public CustomViewHolderAboutUs onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        return new CustomViewHolderTips(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_aboutus,
+                        parent, false);
+
+
+        return new CustomViewHolderAboutUs(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CustomViewHolderTips holder, final int position) {
+    public void onBindViewHolder(@NonNull CustomViewHolderAboutUs holder, final int position) {
 
-        holder.description.setText(tipsList.get(position).getDescription());
+        final String nameAux = listPhysiotherapist.get(position).getName()+
+                " " +listPhysiotherapist.get(position).getSurname1()+
+                " " +listPhysiotherapist.get(position).getSurname2();
 
-        final String base64String  = tipsList.get(position).getImage();
+        holder.nombre.setText(nameAux);
+
+        final String base64String  = listPhysiotherapist.get(position).getImage();
         final String base64Image = base64String.split(",")[1];
         byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
         final Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
@@ -51,21 +57,25 @@ public class CustomAdapterTips extends RecyclerView.Adapter<CustomViewHolderTips
             public void onClick(View v) {
 
                 Bundle bundle = new Bundle();
+                bundle.putString("name",nameAux);
                 bundle.putString("image",base64Image);
-                bundle.putString("description",tipsList.get(position).getDescription());
+                bundle.putString("description",listPhysiotherapist.get(position).getDescription());
 
                 SelectInformationFragment selectInformationFragment = new SelectInformationFragment();
                 selectInformationFragment.setArguments(bundle);
 
+                String backStateName = selectInformationFragment.getClass().getName();
+
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentNavHost, selectInformationFragment)
-                        .addToBackStack(null).commit();
+                        .addToBackStack(backStateName).commit();
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return tipsList.size();
+        return listPhysiotherapist.size();
     }
+
 }

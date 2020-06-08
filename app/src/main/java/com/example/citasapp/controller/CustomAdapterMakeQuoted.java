@@ -1,4 +1,4 @@
-package com.example.citasapp.views.customRecycler;
+package com.example.citasapp.controller;
 
 import android.app.AlertDialog;import android.content.DialogInterface;
 import android.view.LayoutInflater;
@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.citasapp.R;
-import com.example.citasapp.controller.FirebaseReferences;
 import com.example.citasapp.data.Quoted;
 import com.example.citasapp.data.QuotedAux;
 import com.google.firebase.auth.FirebaseAuth;

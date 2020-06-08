@@ -5,11 +5,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -20,7 +17,6 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -61,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btonRegister_Login);
         btnSingIn = findViewById(R.id.btonSignIn_Login);
         btnGmail = findViewById(R.id.btonGmail_login);
+        btnForgetPwd = findViewById(R.id.btonForgetPwd_Login);
 
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -129,7 +126,13 @@ public class LoginActivity extends AppCompatActivity {
         }
     });
 
-
+btnForgetPwd.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(LoginActivity.this, ForgetPwdActivity.class);
+        startActivity(intent);
+    }
+});
 
     btnGmail.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -142,15 +145,21 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        firebaseAuth.addAuthStateListener(authStateListener);
+        //firebaseAuth.addAuthStateListener(authStateListener);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         if (authStateListener != null){
-            firebaseAuth.addAuthStateListener(authStateListener);
+         //   firebaseAuth.addAuthStateListener(authStateListener);
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //firebaseAuth.addAuthStateListener(authStateListener);
     }
 
     private void showAlert(){
@@ -165,12 +174,6 @@ public class LoginActivity extends AppCompatActivity {
     private void showHome(){
         Intent intentHome = new Intent(LoginActivity.this,HomeActivity.class);
         startActivity(intentHome);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        firebaseAuth.addAuthStateListener(authStateListener);
     }
 
     private void signInGmail(){

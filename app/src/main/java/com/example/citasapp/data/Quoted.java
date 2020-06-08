@@ -1,6 +1,5 @@
 package com.example.citasapp.data;
 
-import java.util.Date;
 
 public class Quoted {
 
@@ -79,5 +78,18 @@ public class Quoted {
 
     public void setState(String state) {
         State = state;
+    }
+
+    @Override
+    public String toString() {
+        return "Quoted{" +
+                "idQuoted='" + idQuoted + '\'' +
+                ", idUser='" + idUser + '\'' +
+                ", idPhysiotherapist='" + idPhysiotherapist + '\'' +
+                ", idInjury='" + idInjury + '\'' +
+                ", dateQuoted='" + dateQuoted + '\'' +
+                ", timeQuoted='" + timeQuoted + '\'' +
+                ", State='" + State + '\'' +
+                '}';
     }
 }

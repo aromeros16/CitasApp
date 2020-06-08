@@ -12,12 +12,19 @@
         <action
             android:id="@+id/action_homeFragment_to_nav_make_quoted"
             app:destination="@id/nav_make_quoted" />
+        <action
+            android:id="@+id/action_homeFragment_to_nav_aboutus"
+            app:destination="@id/nav_aboutus" />
     </fragment>
     <fragment
         android:id="@+id/nav_aboutus"
         android:name="com.example.citasapp.views.AboutUsFragment"
         android:label="fragment_about_us"
-        tools:layout="@layout/fragment_about_us" />
+        tools:layout="@layout/fragment_about_us" >
+        <action
+            android:id="@+id/action_nav_aboutus_to_selectInformationFragment"
+            app:destination="@id/selectInformationFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_ad"
         android:name="com.example.citasapp.views.AdFragment"
@@ -57,4 +64,9 @@
             android:id="@+id/action_aboutUsSingleFragment_to_nav_aboutus"
             app:destination="@id/nav_aboutus" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_singOut"
+        android:name="com.example.citasapp.views.SingOutFragment"
+        android:label="fragment_sing_out"
+        tools:layout="@layout/fragment_sing_out" />
 </navigation>

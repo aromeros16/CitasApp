@@ -15,14 +15,13 @@ import android.view.ViewGroup;
 import com.example.citasapp.R;
 import com.example.citasapp.controller.FirebaseReferences;
 import com.example.citasapp.data.Tips;
-import com.example.citasapp.views.customRecycler.CustomAdapterTips;
+import com.example.citasapp.controller.CustomAdapterTips;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
