@@ -40,7 +40,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseAuth firebaseAuth;
-    private GoogleSignInClient googleSignInClient;
 
     private int RC_SING_IN = 100;
     private static final String GOOGLE = "google.com";
@@ -62,7 +61,6 @@ public class LoginActivity extends AppCompatActivity {
         btnSingIn = findViewById(R.id.btonSignIn_Login);
         btnGmail = findViewById(R.id.btonGmail_login);
         btnForgetPwd = findViewById(R.id.btonForgetPwd_Login);
-
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -149,7 +147,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-       // firebaseAuth.addAuthStateListener(authStateListener);
+        //firebaseAuth.addAuthStateListener(authStateListener);
     }
 
     @Override

@@ -33,6 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class MakeQuotedFragment extends Fragment {
@@ -50,10 +51,17 @@ public class MakeQuotedFragment extends Fragment {
         //Hooks
         txtDate = view.findViewById(R.id.txtDate_Quoted);
 
-        Calendar c = Calendar.getInstance();
+        Calendar c = new GregorianCalendar();
+
+        String mes = Integer.toString(c.get(Calendar.MONTH));
+        int mesAux = Integer.parseInt(mes);
+        mesAux = mesAux+1;
+        mes = Integer.toString(mesAux);
+
         String dateAct = c.get(Calendar.DAY_OF_MONTH) + "/"
-                + c.get(Calendar.MONTH ) +"/"
+                + mes +"/"
                 + c.get(Calendar.YEAR);
+
         txtDate.setText(dateAct);
 
         return view;
@@ -66,7 +74,6 @@ public class MakeQuotedFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 showDatePicker();
-
             }
 
         });
@@ -134,12 +141,13 @@ public class MakeQuotedFragment extends Fragment {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference().child(FirebaseReferences.QUOTEDS_REFERENCE);
 
-        list = new ArrayList<>();
+
 
         reference.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                list = new ArrayList<>();
                 list.add(new QuotedAux("10:00 - 11:00","Libre",dateAux));
                 list.add(new QuotedAux("11:00 - 12:00","Libre",dateAux));
                 list.add(new QuotedAux("12:00 - 13:00","Libre",dateAux));
@@ -159,7 +167,6 @@ public class MakeQuotedFragment extends Fragment {
                         quotedAux.setState("Libre");
 
                         int aux = 0;
-
                         for (QuotedAux quotedList : list){
                             if (quotedAux.getDateAux().equals(quotedList.getDateAux()) &&
                                     quotedAux.getTime().equals(quotedList.getTime())){
@@ -195,5 +202,4 @@ public class MakeQuotedFragment extends Fragment {
         }
         return fechaDate;
     }
-
 }

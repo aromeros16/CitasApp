@@ -1,11 +1,9 @@
 package com.example.citasapp.views;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -30,10 +28,9 @@ public class SingOutFragment extends Fragment {
 
         FirebaseAuth.getInstance().signOut();
 
+         int p = android.os.Process.myPid();
+        android.os.Process.killProcess(p);
 
-
-                        int p = android.os.Process.myPid();
-                        android.os.Process.killProcess(p);
         return  view;
     }
 }
