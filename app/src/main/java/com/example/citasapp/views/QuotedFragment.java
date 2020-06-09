@@ -15,9 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.citasapp.R;
+import com.example.citasapp.controller.CustomAdapterMakeQuoted;
 import com.example.citasapp.controller.FirebaseReferences;
 import com.example.citasapp.data.Quoted;
 import com.example.citasapp.controller.CustomAdaptarQuoted;
+import com.example.citasapp.data.QuotedAux;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,12 +28,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class QuotedFragment extends Fragment {
 
     private TextView txtDate, txtTime, txtState;
     private ArrayList<Quoted> quotedList;
+    private List<QuotedAux> list;
     private RecyclerView recyclerView;
 
     private String userID;
