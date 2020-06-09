@@ -44,4 +44,5 @@ public class SelectInformationFragment extends Fragment {
         }
         return view;
     }
+
 }

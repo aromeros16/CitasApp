@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.citasapp.R;
+import com.example.citasapp.controller.FirebaseReferences;
 import com.example.citasapp.data.Physiotherapist;
 import com.example.citasapp.controller.CustomAdapterAboutUs;
 import com.google.firebase.database.DataSnapshot;
@@ -54,7 +55,7 @@ public class AboutUsFragment extends Fragment{
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        databaseReference.child("physiotherapists").addValueEventListener(new ValueEventListener() {
+        databaseReference.child(FirebaseReferences.PHYSIOTERAPIST_REFERENCE).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){

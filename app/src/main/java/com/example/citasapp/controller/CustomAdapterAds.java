@@ -13,40 +13,34 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.citasapp.R;
-import com.example.citasapp.data.Physiotherapist;
+import com.example.citasapp.data.Ads;
 import com.example.citasapp.views.SelectInformationFragment;
 
 import java.util.List;
 
-public class CustomAdapterAboutUs extends RecyclerView.Adapter<CustomViewHolderAboutUs> {
+public class CustomAdapterAds extends RecyclerView.Adapter<CustomViewHolderTips> {
 
-    private List<Physiotherapist> listPhysiotherapist;
+    private List<Ads> adsList;
 
-    public CustomAdapterAboutUs(List<Physiotherapist> physiotherapist) {
-        listPhysiotherapist = physiotherapist;
-
+    public CustomAdapterAds(List<Ads> list){
+        adsList = list;
     }
+
     @NonNull
     @Override
-    public CustomViewHolderAboutUs onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CustomViewHolderTips onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_ad,
+                parent, false);
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_aboutus,
-                        parent, false);
-
-
-        return new CustomViewHolderAboutUs(view);
+        return new CustomViewHolderTips(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CustomViewHolderAboutUs holder, final int position) {
+    public void onBindViewHolder(@NonNull CustomViewHolderTips holder, final int position) {
 
-        final String nameAux = listPhysiotherapist.get(position).getName()+
-                " " +listPhysiotherapist.get(position).getSurname1()+
-                " " +listPhysiotherapist.get(position).getSurname2();
+        holder.description.setText(adsList.get(position).getDescription());
 
-        holder.nombre.setText(nameAux);
-
-        final String base64String  = listPhysiotherapist.get(position).getImage();
+        final String base64String  = adsList.get(position).getImage();
         final String base64Image = base64String.split(",")[1];
         byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
         final Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
@@ -57,26 +51,21 @@ public class CustomAdapterAboutUs extends RecyclerView.Adapter<CustomViewHolderA
             public void onClick(View v) {
 
                 Bundle bundle = new Bundle();
-                bundle.putString("name",nameAux);
                 bundle.putString("image",base64Image);
-                bundle.putString("description",listPhysiotherapist.get(position).getDescription());
+                bundle.putString("description",adsList.get(position).getDescription());
 
                 SelectInformationFragment selectInformationFragment = new SelectInformationFragment();
                 selectInformationFragment.setArguments(bundle);
 
-                String backStateName = selectInformationFragment.getClass().getName();
-
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentNavHost, selectInformationFragment)
-                        .addToBackStack(backStateName).commit();
-
+                        .addToBackStack(null).commit();
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return listPhysiotherapist.size();
+        return adsList.size();
     }
-
 }

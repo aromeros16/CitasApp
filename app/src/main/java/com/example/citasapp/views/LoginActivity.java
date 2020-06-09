@@ -1,16 +1,18 @@
 package com.example.citasapp.views;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.citasapp.R;
 import com.firebase.ui.auth.AuthUI;
@@ -31,10 +33,10 @@ import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private String emailPrefs;
     private TextInputLayout txtEmail, txtPassword;
     private Button btnSingIn, btnForgetPwd, btnRegister;
     private ImageButton btnGmail;
-    private String emailPrefs, providerPrefs;
 
     private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseAuth firebaseAuth;
@@ -48,6 +50,8 @@ public class LoginActivity extends AppCompatActivity {
 
         //Ocultar actionbar
         getSupportActionBar().hide();
+
+        session();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -79,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
                 else{
-                  startActivityForResult(AuthUI.getInstance()
+                    startActivityForResult(AuthUI.getInstance()
                             .createSignInIntentBuilder()
                             .setIsSmartLockEnabled(false)
                             .setTosUrl("http://databaseremote.esy.es/RegisterLite/html/privacidad.html")
@@ -90,69 +94,69 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
 
-    btnSingIn.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            String email = txtEmail.getEditText().getText().toString();
-            String pwd = txtPassword.getEditText().getText().toString();
+        btnSingIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = txtEmail.getEditText().getText().toString();
+                String pwd = txtPassword.getEditText().getText().toString();
 
-            if(email.isEmpty()){
-                txtEmail.setError("Por favor introduzca un email");
-                txtEmail.requestFocus();
-            }
-            else if(pwd.isEmpty()){
-                txtPassword.setError("Tienes que introducir la contraseña");
-                txtPassword.requestFocus();
-            }
-            else if(email.isEmpty() && pwd.isEmpty()){
-                Toast.makeText(LoginActivity.this,"Campos obligatorios vacios!",Toast.LENGTH_SHORT).show();
-            }
-            else if(!(email.isEmpty() && pwd.isEmpty())){
-                firebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener( new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(!task.isSuccessful()){
-                            showAlert();
+                if(email.isEmpty()){
+                    txtEmail.setError("Por favor introduzca un email");
+                    txtEmail.requestFocus();
+                }
+                else if(pwd.isEmpty()){
+                    txtPassword.setError("Tienes que introducir la contraseña");
+                    txtPassword.requestFocus();
+                }
+                else if(email.isEmpty() && pwd.isEmpty()){
+                    Toast.makeText(LoginActivity.this,"Campos obligatorios vacios!",Toast.LENGTH_SHORT).show();
+                }
+                else if(!(email.isEmpty() && pwd.isEmpty())){
+                    firebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener( new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(!task.isSuccessful()){
+                                showAlert();
+                            }
+                            else{
+                                showHome();
+                            }
                         }
-                        else{
-                            showHome();
-                        }
-                    }
-                });
+                    });
+                }
+                else{
+                    Toast.makeText(LoginActivity.this,"Error Occurrido en la autenticación!",Toast.LENGTH_SHORT).show();
+                }
             }
-            else{
-                Toast.makeText(LoginActivity.this,"Error Occurrido en la autenticación!",Toast.LENGTH_SHORT).show();
+        });
+
+        btnForgetPwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ForgetPwdActivity.class);
+                startActivity(intent);
             }
-        }
-    });
+        });
 
-btnForgetPwd.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        Intent intent = new Intent(LoginActivity.this, ForgetPwdActivity.class);
-        startActivity(intent);
-    }
-});
-
-    btnGmail.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            signInGmail();
-        }
-    });
+        btnGmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signInGmail();
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //firebaseAuth.addAuthStateListener(authStateListener);
+       // firebaseAuth.addAuthStateListener(authStateListener);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         if (authStateListener != null){
-         //   firebaseAuth.addAuthStateListener(authStateListener);
+              // firebaseAuth.addAuthStateListener(authStateListener);
         }
     }
 
@@ -179,7 +183,7 @@ btnForgetPwd.setOnClickListener(new View.OnClickListener() {
     private void signInGmail(){
         //Config
         AuthUI.IdpConfig googleIdp = new AuthUI.IdpConfig.GoogleBuilder()
-                                                .build();
+                .build();
 
         startActivityForResult(AuthUI.getInstance()
                 .createSignInIntentBuilder()
@@ -195,12 +199,12 @@ btnForgetPwd.setOnClickListener(new View.OnClickListener() {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-          if (requestCode == RC_SING_IN) {
-              if (resultCode == RESULT_OK) {
-                  Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-                  handleSignInResult(task);
-              }
-          }
+        if (requestCode == RC_SING_IN) {
+            if (resultCode == RESULT_OK) {
+                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                handleSignInResult(task);
+            }
+        }
     }
 
     private void handleSignInResult(Task<GoogleSignInAccount> completeTask){
@@ -217,20 +221,29 @@ btnForgetPwd.setOnClickListener(new View.OnClickListener() {
 
     private void FirebaseGoogleAuth(final GoogleSignInAccount account) {
         if (account != null) {
-        AuthCredential authCredential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-        firebaseAuth.signInWithCredential(authCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    showHome();
-                } else {
-                    showAlert();
+            AuthCredential authCredential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+            firebaseAuth.signInWithCredential(authCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        showHome();
+                    } else {
+                        showAlert();
+                    }
                 }
-            }
-        });
+            });
         }
         else{
             Toast.makeText(LoginActivity.this, "No tiene cuenta de Gmail en este dispositivo", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void session() {
+        SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
+        emailPrefs = prefs.getString("email",null);
+
+        if(emailPrefs != null ){
+            showHome();
         }
     }
 }

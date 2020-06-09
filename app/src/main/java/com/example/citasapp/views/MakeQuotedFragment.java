@@ -52,7 +52,7 @@ public class MakeQuotedFragment extends Fragment {
 
         Calendar c = Calendar.getInstance();
         String dateAct = c.get(Calendar.DAY_OF_MONTH) + "/"
-                + c.get(Calendar.MONTH + 1) +"/"
+                + c.get(Calendar.MONTH ) +"/"
                 + c.get(Calendar.YEAR);
         txtDate.setText(dateAct);
 
@@ -103,7 +103,7 @@ public class MakeQuotedFragment extends Fragment {
             if (verifyDate(parseDateAux)){
             uploadQuoted(dateAux);}
             else{
-                Toast.makeText(view.getContext(), "Debes ingresar una fecha superior a mañana ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), "Debes ingresar una fecha que no sea pasada ", Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -118,12 +118,15 @@ public class MakeQuotedFragment extends Fragment {
         //Realizamos la operacion para saber que dia es superior actual
         long deltaDaysActual = (dateAux.getTime() - fechaActual.getTime())/MILLSECS_PER_DAY;
 
-        if (deltaDaysActual > 0){
+        if (deltaDaysActual > -1){
             return true;
         }
-            return false;
+        list = new ArrayList<>();
+        recyclerView = getView().findViewById(R.id.recyclerviewMakeQuoted);
+        recyclerView.setAdapter(new CustomAdapterMakeQuoted(list));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getView().getContext()));
 
-
+        return false;
     }
 
     private void uploadQuoted(final String dateAux) {

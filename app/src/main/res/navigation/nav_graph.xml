@@ -15,6 +15,21 @@
         <action
             android:id="@+id/action_homeFragment_to_nav_aboutus"
             app:destination="@id/nav_aboutus" />
+        <action
+            android:id="@+id/action_homeFragment_to_nav_tips"
+            app:destination="@id/nav_tips" />
+        <action
+            android:id="@+id/action_homeFragment_to_nav_quoted"
+            app:destination="@id/nav_quoted" />
+        <action
+            android:id="@+id/action_homeFragment_to_nav_ad"
+            app:destination="@id/nav_ad" />
+        <action
+            android:id="@+id/action_homeFragment_to_nav_info"
+            app:destination="@id/nav_info" />
+        <action
+            android:id="@+id/action_homeFragment_to_nav_singOut"
+            app:destination="@id/nav_singOut" />
     </fragment>
     <fragment
         android:id="@+id/nav_aboutus"
@@ -36,11 +51,6 @@
         android:label="fragment_appointment"
         tools:layout="@layout/fragment_quoted" />
     <fragment
-        android:id="@+id/nav_chat"
-        android:name="com.example.citasapp.views.ChatFragment"
-        android:label="fragment_chat"
-        tools:layout="@layout/fragment_chat" />
-    <fragment
         android:id="@+id/nav_info"
         android:name="com.example.citasapp.views.InfoFragment"
         android:label="fragment_info"
@@ -59,11 +69,7 @@
         android:id="@+id/selectInformationFragment"
         android:name="com.example.citasapp.views.SelectInformationFragment"
         android:label="fragment_about_us_single"
-        tools:layout="@layout/fragment_select_information" >
-        <action
-            android:id="@+id/action_aboutUsSingleFragment_to_nav_aboutus"
-            app:destination="@id/nav_aboutus" />
-    </fragment>
+        tools:layout="@layout/fragment_select_information" />
     <fragment
         android:id="@+id/nav_singOut"
         android:name="com.example.citasapp.views.SingOutFragment"
