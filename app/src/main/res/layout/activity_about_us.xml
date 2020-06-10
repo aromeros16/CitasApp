@@ -6,9 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/background"
-    tools:context=".views.TipsFragment">
-
-
+    tools:context=".views.AboutUsActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="104dp"
@@ -20,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:text="Consejos"
+            android:text="Nosotros"
             android:textAlignment="center"
             android:textSize="40dp"
             android:textStyle="bold" />
@@ -29,8 +27,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerListTips"
+        android:id="@+id/recyclerListAboutUs"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
 </LinearLayout>

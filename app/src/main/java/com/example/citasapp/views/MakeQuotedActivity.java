@@ -2,26 +2,22 @@ package com.example.citasapp.views;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.citasapp.R;
+import com.example.citasapp.controller.CustomAdapterMakeQuoted;
 import com.example.citasapp.controller.FirebaseReferences;
 import com.example.citasapp.data.QuotedAux;
 import com.example.citasapp.views.Dialog.DatePickerFragment;
-import com.example.citasapp.controller.CustomAdapterMakeQuoted;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,20 +32,19 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-public class MakeQuotedFragment extends Fragment {
+public class MakeQuotedActivity extends AppCompatActivity {
 
     private TextView txtDate;
     private List<QuotedAux> list;
-     private RecyclerView recyclerView;
+    private RecyclerView recyclerView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_make_quoted, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_make_quoted);
 
         //Hooks
-        txtDate = view.findViewById(R.id.txtDate_Quoted);
+        txtDate = findViewById(R.id.txtDate_Quoted);
 
         Calendar c = new GregorianCalendar();
 
@@ -64,21 +59,13 @@ public class MakeQuotedFragment extends Fragment {
 
         txtDate.setText(dateAct);
 
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         txtDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePicker();
             }
-
         });
     }
-
     private void showDatePicker() {
         DatePickerFragment date = new DatePickerFragment();
         /**
@@ -94,7 +81,7 @@ public class MakeQuotedFragment extends Fragment {
          * Set Call back to capture selected date
          */
         date.setCallBack(ondate);
-        date.show(getFragmentManager(), "Date Picker");
+        date.show(getSupportFragmentManager(), "Date Picker");
     }
     DatePickerDialog.OnDateSetListener ondate = new DatePickerDialog.OnDateSetListener() {
 
@@ -108,13 +95,12 @@ public class MakeQuotedFragment extends Fragment {
             Date parseDateAux = parseDate(dateAux);
 
             if (verifyDate(parseDateAux)){
-            uploadQuoted(dateAux);}
+                uploadQuoted(dateAux);}
             else{
                 Toast.makeText(view.getContext(), "Debes ingresar una fecha que no sea pasada ", Toast.LENGTH_SHORT).show();
             }
         }
     };
-
     private boolean verifyDate(Date dateAux) {
         //Parametro para calcular la diferencia de dias
         final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000;
@@ -129,9 +115,9 @@ public class MakeQuotedFragment extends Fragment {
             return true;
         }
         list = new ArrayList<>();
-        recyclerView = getView().findViewById(R.id.recyclerviewMakeQuoted);
+        recyclerView = findViewById(R.id.recyclerviewMakeQuoted);
         recyclerView.setAdapter(new CustomAdapterMakeQuoted(list));
-        recyclerView.setLayoutManager(new LinearLayoutManager(getView().getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
 
         return false;
     }
@@ -140,8 +126,6 @@ public class MakeQuotedFragment extends Fragment {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference().child(FirebaseReferences.QUOTEDS_REFERENCE);
-
-
 
         reference.addValueEventListener(new ValueEventListener() {
 
@@ -172,14 +156,14 @@ public class MakeQuotedFragment extends Fragment {
                                     quotedAux.getTime().equals(quotedList.getTime())){
                                 list.get(aux).setState("Ocupado");
                             }
-                        aux++;
+                            aux++;
                         }
                     }
                 }
 
-                recyclerView = getView().findViewById(R.id.recyclerviewMakeQuoted);
+                recyclerView = findViewById(R.id.recyclerviewMakeQuoted);
                 recyclerView.setAdapter(new CustomAdapterMakeQuoted(list));
-                recyclerView.setLayoutManager(new LinearLayoutManager(getView().getContext()));
+                recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
             }
 
             @Override

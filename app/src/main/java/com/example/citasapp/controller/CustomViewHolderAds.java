@@ -17,8 +17,8 @@ public class CustomViewHolderAds extends RecyclerView.ViewHolder{
 
     public CustomViewHolderAds(@NonNull View itemView) {
         super(itemView);
-        cardView = itemView.findViewById(R.id.cardView_tips);
-        description = itemView.findViewById(R.id.textDescriptionTips);
-        imagen = itemView.findViewById(R.id.imageTips);
+        cardView = itemView.findViewById(R.id.cardView_ads);
+        description = itemView.findViewById(R.id.textDescriptionAds);
+        imagen = itemView.findViewById(R.id.imageAds);
     }
 }

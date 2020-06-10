@@ -10,17 +10,8 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment_to_nav_make_quoted"
-            app:destination="@id/nav_make_quoted" />
-        <action
             android:id="@+id/action_homeFragment_to_nav_aboutus"
             app:destination="@id/nav_aboutus" />
-        <action
-            android:id="@+id/action_homeFragment_to_nav_tips"
-            app:destination="@id/nav_tips" />
-        <action
-            android:id="@+id/action_homeFragment_to_nav_quoted"
-            app:destination="@id/nav_quoted" />
         <action
             android:id="@+id/action_homeFragment_to_nav_ad"
             app:destination="@id/nav_ad" />
@@ -30,49 +21,56 @@
         <action
             android:id="@+id/action_homeFragment_to_nav_singOut"
             app:destination="@id/nav_singOut" />
-    </fragment>
-    <fragment
-        android:id="@+id/nav_aboutus"
-        android:name="com.example.citasapp.views.AboutUsFragment"
-        android:label="fragment_about_us"
-        tools:layout="@layout/fragment_about_us" >
         <action
-            android:id="@+id/action_nav_aboutus_to_selectInformationFragment"
-            app:destination="@id/selectInformationFragment" />
+            android:id="@+id/action_homeFragment_to_nav_quoted"
+            app:destination="@id/nav_quoted" />
+        <action
+            android:id="@+id/action_homeFragment_to_nav_make_quoted"
+            app:destination="@id/nav_make_quoted" />
+        <action
+            android:id="@+id/action_homeFragment_to_registerActivity"
+            app:destination="@id/nav_aboutus" />
+        <action
+            android:id="@+id/action_homeFragment_to_tipsActivity"
+            app:destination="@id/nav_tips" />
     </fragment>
-    <fragment
-        android:id="@+id/nav_ad"
-        android:name="com.example.citasapp.views.AdFragment"
-        android:label="fragment_ad"
-        tools:layout="@layout/fragment_ad" />
-    <fragment
-        android:id="@+id/nav_quoted"
-        android:name="com.example.citasapp.views.QuotedFragment"
-        android:label="fragment_appointment"
-        tools:layout="@layout/fragment_quoted" />
     <fragment
         android:id="@+id/nav_info"
         android:name="com.example.citasapp.views.InfoFragment"
         android:label="fragment_info"
         tools:layout="@layout/fragment_info" />
     <fragment
-        android:id="@+id/nav_tips"
-        android:name="com.example.citasapp.views.TipsFragment"
-        android:label="fragment_tips"
-        tools:layout="@layout/fragment_tips" />
-    <fragment
-        android:id="@+id/nav_make_quoted"
-        android:name="com.example.citasapp.views.MakeQuotedFragment"
-        android:label="fragment_make_quoted"
-        tools:layout="@layout/fragment_make_quoted" />
-    <fragment
-        android:id="@+id/selectInformationFragment"
-        android:name="com.example.citasapp.views.SelectInformationFragment"
-        android:label="fragment_about_us_single"
-        tools:layout="@layout/fragment_select_information" />
-    <fragment
         android:id="@+id/nav_singOut"
         android:name="com.example.citasapp.views.SingOutFragment"
         android:label="fragment_sing_out"
         tools:layout="@layout/fragment_sing_out" />
+    <activity
+        android:id="@+id/nav_quoted"
+        android:name="com.example.citasapp.views.QuotedActivity"
+        android:label="activity_splash"
+        tools:layout="@layout/activity_quoted" />
+    <activity
+        android:id="@+id/nav_make_quoted"
+        android:name="com.example.citasapp.views.MakeQuotedActivity"
+        android:label="MakeQuotedActivity" />
+    <activity
+        android:id="@+id/nav_aboutus"
+        android:name="com.example.citasapp.views.AboutUsActivity"
+        android:label="activity_register"
+        tools:layout="@layout/activity_about_us" />
+    <activity
+        android:id="@+id/nav_tips"
+        android:name="com.example.citasapp.views.TipsActivity"
+        android:label="activity_tips"
+        tools:layout="@layout/activity_tips" />
+    <activity
+        android:id="@+id/nav_ad"
+        android:name="com.example.citasapp.views.AdsActivity"
+        android:label="activity_ads"
+        tools:layout="@layout/activity_ads" />
+    <activity
+        android:id="@+id/selectInformationFragment"
+        android:name="com.example.citasapp.views.SelectInformationActivity"
+        android:label="activity_select_information"
+        tools:layout="@layout/activity_select_information" />
 </navigation>

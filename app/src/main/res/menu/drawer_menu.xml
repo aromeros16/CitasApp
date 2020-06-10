@@ -7,8 +7,6 @@
            android:title="Pedir cita" />
         <item android:id="@+id/nav_quoted"
            android:title="Citas" />
-        <item android:id="@+id/nav_chat"
-           android:title="Mensajes" />
         <item android:id="@+id/nav_ad"
            android:title="Anuncio" />
         <item android:id="@+id/nav_tips"

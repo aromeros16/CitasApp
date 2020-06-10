@@ -3,19 +3,14 @@ package com.example.citasapp.views;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.example.citasapp.R;
+import com.example.citasapp.controller.CustomAdapterTips;
 import com.example.citasapp.controller.FirebaseReferences;
 import com.example.citasapp.data.Tips;
-import com.example.citasapp.controller.CustomAdapterTips;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TipsFragment extends Fragment {
+public class TipsActivity extends AppCompatActivity {
 
     private List<Tips> tipsList;
     private RecyclerView recyclerView;
@@ -33,20 +28,12 @@ public class TipsFragment extends Fragment {
 
     private DatabaseReference databaseReference;
 
-    public TipsFragment(){
-
-    }
-    public TipsFragment(List<Tips> tipsList){
-        this.tipsList = tipsList;
-    }
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_tips, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_tips);
 
-        recyclerView = view.findViewById(R.id.recyclerListTips);
+        recyclerView = findViewById(R.id.recyclerListTips);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
 
         tipsList = new ArrayList<>();
@@ -65,7 +52,6 @@ public class TipsFragment extends Fragment {
                     customAdapterTips = new CustomAdapterTips(tipsList);
                     recyclerView.setAdapter(customAdapterTips);
                 }
-
             }
 
             @Override
@@ -73,11 +59,5 @@ public class TipsFragment extends Fragment {
 
             }
         });
-    return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
     }
 }

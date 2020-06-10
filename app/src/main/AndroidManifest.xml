@@ -29,7 +29,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".views.AdsActivity"></activity>
+        <activity android:name=".views.TipsActivity" />
+        <activity android:name=".views.SelectInformationActivity" />
+        <activity android:name=".views.AboutUsActivity" />
+        <activity android:name=".views.MakeQuotedActivity" />
+        <activity android:name=".views.QuotedActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -57,7 +62,8 @@
         <activity
             android:name=".views.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".views.ForgetPwdActivity"
+        <activity
+            android:name=".views.ForgetPwdActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

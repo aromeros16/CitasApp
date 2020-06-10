@@ -1,38 +1,39 @@
 package com.example.citasapp.controller;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.citasapp.R;
 import com.example.citasapp.data.Physiotherapist;
-import com.example.citasapp.views.SelectInformationFragment;
+import com.example.citasapp.views.SelectInformationActivity;
 
 import java.util.List;
 
 public class CustomAdapterAboutUs extends RecyclerView.Adapter<CustomViewHolderAboutUs> {
 
     private List<Physiotherapist> listPhysiotherapist;
-
+    private Context context;
     public CustomAdapterAboutUs(List<Physiotherapist> physiotherapist) {
         listPhysiotherapist = physiotherapist;
 
     }
+
     @NonNull
     @Override
     public CustomViewHolderAboutUs onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_aboutus,
                         parent, false);
-
+        context = parent.getContext();
 
         return new CustomViewHolderAboutUs(view);
     }
@@ -56,27 +57,22 @@ public class CustomAdapterAboutUs extends RecyclerView.Adapter<CustomViewHolderA
             @Override
             public void onClick(View v) {
 
-                Bundle bundle = new Bundle();
-                bundle.putString("name",nameAux);
-                bundle.putString("image",base64Image);
-                bundle.putString("description",listPhysiotherapist.get(position).getDescription());
+                Intent intent = new Intent(context, SelectInformationActivity.class);
+                intent.putExtra("name",nameAux);
+                intent.putExtra("image",base64Image);
+                intent.putExtra("description",listPhysiotherapist.get(position).getDescription());
 
-                SelectInformationFragment selectInformationFragment = new SelectInformationFragment();
-                selectInformationFragment.setArguments(bundle);
-
-                String backStateName = selectInformationFragment.getClass().getName();
-
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentNavHost, selectInformationFragment)
-                        .addToBackStack(backStateName).commit();
+                context.startActivity(intent);
 
             }
         });
     }
 
+
     @Override
     public int getItemCount() {
         return listPhysiotherapist.size();
     }
+
 
 }
